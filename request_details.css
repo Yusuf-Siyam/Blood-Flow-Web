@@ -1,0 +1,155 @@
+/* 1. Page Wrapper: Pura content-ke page-er majhkhane rakhe */
+.details-wrapper {
+  background-color: #f4f7f6; /* Light background color */
+  padding: 50px 0;
+  min-height: 80vh;
+}
+
+/* 2. Main Box: Details-er main container */
+.details-box {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Shundor shadow design */
+}
+
+/* 3. Header Section: Dark background with blood group */
+.details-header {
+  background: #1a2a3a; /* Dark navy blue */
+  color: white;
+  padding: 40px;
+  position: relative;
+}
+
+.blood-badge {
+  background: #d32f2f; /* Red blood color */
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.status-text {
+  float: right;
+  color: #999;
+  font-style: italic;
+}
+
+.location-tag {
+  margin-top: 10px;
+  color: #ccc;
+}
+
+/* 4. Info Section: Layout-ke dui pashe bhag kora */
+.info-section {
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipient-info,
+.message-info {
+  width: 45%;
+}
+
+.info-section h3 {
+  color: #1a2a3a;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #f4f7f6;
+  padding-bottom: 5px;
+}
+
+.msg-text {
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* 5. Donate Button Style */
+.action-area {
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.donate-now-btn {
+  background: #d32f2f;
+  color: white;
+  padding: 15px 60px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.donate-now-btn:hover {
+  background: #b71c1c;
+  transform: translateY(-2px); /* Clickable feel */
+}
+
+/* 6. Modal Styling: Pop-up form design */
+.modal {
+  display: none; /* Default-e hidden thakbe */
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Dark blur background */
+}
+
+.modal-content {
+  background: #fff;
+  width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+}
+
+.input-group {
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box; /* Padding thik rakhar jonno */
+}
+
+.confirm-commit-btn {
+  background: #d32f2f;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.cancel-btn {
+  background: none;
+  border: none;
+  color: gray;
+  margin-top: 15px;
+  cursor: pointer;
+  text-decoration: underline;
+}
