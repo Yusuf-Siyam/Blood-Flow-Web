@@ -13,8 +13,7 @@ if(!isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Post Blood Request - BloodFlow</title>
-    <link rel="stylesheet" href="request_form.css"> <!-- Specific CSS for this form -->
-</head>
+    <link rel="stylesheet" href="request_form.css"> </head>
 <body>
 
 <?php include('navbar.php'); ?>
@@ -27,8 +26,7 @@ if(!isset($_SESSION['user_id'])) {
         </div>
 
         <div class="request-body">
-            <!-- Form starts here -->
-            <form action="post_request_logic.php" method="POST">
+            <form action="request_logic.php" method="POST">
                 
                 <div class="field-group">
                     <label>Recipient Name</label>
@@ -74,6 +72,14 @@ if(!isset($_SESSION['user_id'])) {
                 <div class="field-group">
                     <label>Message/Notes</label>
                     <textarea name="message" rows="3" placeholder="Any additional info..."></textarea>
+                </div>
+
+                <div class="field-group" style="display:flex; gap:10px; align-items:center; margin-top:15px; margin-bottom:20px;">
+                    <label style="min-width:200px; font-weight:600; color:#d32f2f;">Patient Classification Profile Type</label>
+                    <select name="is_thalassemia" required style="padding:8px 10px; border-radius:6px; border:1px solid #ddd;">
+                        <option value="0">Regular Patient</option>
+                        <option value="1">Thalassemia Patient</option>
+                    </select>
                 </div>
 
                 <button type="submit" name="post_request_btn" class="post-btn">Post Request Now</button>

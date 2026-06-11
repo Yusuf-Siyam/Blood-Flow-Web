@@ -11,7 +11,7 @@
 <div class="login-container">
     <!-- Header part with Red Gradient -->
     <div class="login-header">
-        <div class="icon">💧</div>
+        <div class="icon"></div>
         <h1>Blood Donation</h1>
         <p>Login to save lives</p>
     </div>

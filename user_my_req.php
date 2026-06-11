@@ -18,7 +18,6 @@ $user_id = $_SESSION['user_id'];
 <head>
     <meta charset="UTF-8">
     <title>My Requests - BloodFlow</title>
-    <!-- CSS file link -->
     <link rel="stylesheet" href="user_my_req.css"> 
 </head>
 <body>
@@ -45,10 +44,17 @@ $user_id = $_SESSION['user_id'];
                         <span class="blood-type"><?php echo $row['blood_group']; ?></span>
                     </div>
                     
+                    <?php if(isset($row['is_thalassemia']) && $row['is_thalassemia'] == 1): ?>
+                        <div style="margin-top: -5px; margin-bottom: 12px;">
+                            <span class="thalassemia-dashboard-tag" style="background: #e3f2fd; color: #0d47a1; padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; border: 1px solid #90caf9; display: inline-block;">
+                                🧬 Chronic Thalassemia Request
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                    
                     <p><strong>Hospital:</strong> <?php echo $row['hospital']; ?></p>
                     <p><strong>Location:</strong> <?php echo $row['location']; ?></p>
                     
-                    <!-- Status Badge -->
                     <p><strong>Status:</strong> 
                         <span class="badge <?php echo $row['status']; ?>">
                             <?php 
@@ -60,26 +66,21 @@ $user_id = $_SESSION['user_id'];
                         </span>
                     </p>
 
-                    <!-- NOTIFICATION LOGIC -->
-                    
                     <?php if($row['status'] == 'verified'): ?>
-                        <!-- Admin verify korar por donor details show korbe -->
                         <div class="donor-notif" style="border-left: 5px solid #28a745; background: #e9f7ef; padding: 15px; border-radius: 5px; margin-top: 15px;">
-                            <h4 style="color: #28a745;">✅ Admin Verified Donor Found!</h4>
+                            <h4 style="color: #28a745;"> Admin Verified Donor Found!</h4>
                             <p><strong>Name:</strong> <?php echo $row['donor_name']; ?></p>
                             <p><strong>Contact:</strong> <span class="phone" style="font-weight: bold; color: #d32f2f;"><?php echo $row['donor_contact']; ?></span></p>
                             <p style="font-size: 13px; color: #555; margin-top: 10px;"><em>You can now safely contact the donor.</em></p>
                         </div>
 
                     <?php elseif($row['status'] == 'accepted'): ?>
-                        <!-- Donor info dise kintu admin ekhono approve kore nai -->
                         <div class="donor-notif" style="border-left: 5px solid #3498db; background: #ebf5fb; padding: 15px; border-radius: 5px; margin-top: 15px;">
-                            <h4 style="color: #3498db;">ℹ️ Donor Response Received</h4>
+                            <h4 style="color: #3498db;">ℹ Donor Response Received</h4>
                             <p>A donor has responded to your request. Admin is currently verifying their information. Please check back later.</p>
                         </div>
 
                     <?php elseif($row['status'] == 'approved'): ?>
-                        <!-- Admin approve korse kintu ekhono donor paoa jay nai -->
                         <p style="color: #f39c12; font-size: 14px; margin-top: 10px;">Searching for donors in your area...</p>
 
                     <?php endif; ?>
@@ -91,6 +92,7 @@ $user_id = $_SESSION['user_id'];
             }
             ?>
         </div>
+
     </div>
 </div>
 

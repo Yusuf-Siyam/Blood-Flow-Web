@@ -47,7 +47,9 @@ if(file_exists('navbar.php')){
 
         if(mysqli_num_rows($result) > 0) {
             while($row = mysqli_fetch_array($result)) {
+                                $request_tag = isset($row['is_thalassemia']) && $row['is_thalassemia'] == 1 ? "<span style='display:inline-block; margin-bottom:8px; background:#ffebee; color:#c62828; padding:4px 10px; border-radius:20px; font-size:11px; font-weight:bold; border:1px solid #c62828;'>Thalassemia Request</span>" : "";
                 echo "<div class='card'>
+                                                $request_tag
                         <h3 style='color:#d32f2f;'>$row[blood_group] Required</h3>
                         <p><strong>Hospital:</strong> $row[hospital]</p>
                         <p><strong>Location:</strong> $row[location]</p>

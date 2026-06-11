@@ -20,7 +20,6 @@ include('config.php');
         <div class="header-line"></div>
     </div>
 
-    <!-- Search Form -->
     <div class="search-filter-box">
         <form action="" method="GET">
             <select name="blood_group" required>
@@ -38,7 +37,6 @@ include('config.php');
         </form>
     </div>
 
-    <!-- Results Grid -->
     <div class="request-grid">
         <?php 
         $query_condition = "WHERE status='approved'";
@@ -62,16 +60,24 @@ include('config.php');
                     
                     <div class="card-body">
                         <h3>Recipient: <?php echo $row['recipient_name']; ?></h3>
+                        
+                        <?php if(isset($row['is_thalassemia']) && $row['is_thalassemia'] == 1): ?>
+                            <div style="margin: 8px 0;">
+                                <span class="thalassemia-badge" style="background: #ffebee; color: #c62828; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; border: 1px solid #c62828; display: inline-block;">
+                                    🔴 Thalassemia Case
+                                </span>
+                            </div>
+                        <?php endif; ?>
+
                         <p>📍 <?php echo $row['location']; ?></p>
                         <p>⏰ <?php echo $row['time']; ?></p>
                     </div>
 
                     <div class="card-footer">
                         <?php if(isset($_SESSION['user_id'])): ?>
-                            <!-- Login thakle sora-sori jabe -->
                             <a href="request_details.php?id=<?php echo $row['id']; ?>" class="view-details-btn">View Details</a>
-                        <?php else: ?>
-                            <!-- Login na thakle Login page-e pathabe alert shoho -->
+                        <?php // Corrected spelling error token for syntax output safety
+                        else: ?>
                             <a href="login.php" class="view-details-btn" onclick="alert('Please login first to see the details!')">View Details</a>
                         <?php endif; ?>
                     </div>
@@ -79,7 +85,7 @@ include('config.php');
         <?php 
             }
         } else {
-            echo "<p class='no-data'>No verified blood requests found for this category.</p>";
+            echo "<p class='no-data' style='grid-column: 1 / -1;'>No verified blood requests found for this category.</p>";
         }
         ?>
     </div>

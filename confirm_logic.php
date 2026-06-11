@@ -14,8 +14,12 @@ if(isset($_POST['confirm_btn'])) {
     $donor_id = $_SESSION['user_id'];
 
     // Double-check: Requester jeno donor na hoy
-    $check_query = mysqli_query($conn, "SELECT user_id FROM requests WHERE id='$id'");
-    $req_data = mysqli_fetch_array($check_query);
+    $check_query = mysqli_query($conn, "SELECT user_id, is_thalassemia FROM requests WHERE id='$id' LIMIT 1");
+    $req_data = $check_query ? mysqli_fetch_array($check_query) : null;
+
+    if(!$req_data) {
+        die("Request not found!");
+    }
 
     if($req_data['user_id'] == $donor_id) {
         die("Action Denied: You cannot donate to your own request!");
@@ -25,6 +29,15 @@ if(isset($_POST['confirm_btn'])) {
     $query = "UPDATE requests SET donor_name='$name', donor_contact='$contact', status='accepted' WHERE id='$id'";
     
     if(mysqli_query($conn, $query)) {
+        if(isset($req_data['is_thalassemia']) && (int)$req_data['is_thalassemia'] === 1) {
+            $alert_update = mysqli_query($conn, "SELECT id FROM thalassemia_alerts WHERE request_id='$id' AND donor_id='$donor_id' ORDER BY id DESC LIMIT 1");
+            if($alert_update && mysqli_num_rows($alert_update) > 0) {
+                $alert_row = mysqli_fetch_array($alert_update);
+                $alert_id = (int)$alert_row['id'];
+                mysqli_query($conn, "UPDATE thalassemia_alerts SET status='accepted' WHERE id='$alert_id'");
+                mysqli_query($conn, "UPDATE thalassemia_alerts SET status='ignored' WHERE request_id='$id' AND donor_id <> '$donor_id' AND status='pending'");
+            }
+        }
         echo "<script>alert('Confirmation Sent! Admin will verify your info.'); window.location='search.php';</script>";
     } else {
         echo "Error: " . mysqli_error($conn);

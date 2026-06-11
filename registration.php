@@ -37,6 +37,14 @@
             </select>
         </div>
 
+        <div class="input-box">
+            <label>Donor Type</label>
+            <select name="donor_type" required>
+                <option value="regular">Regular Donor</option>
+                <option value="fixed">Fixed Donor (Thalassemia Support)</option>
+            </select>
+        </div>
+
         <!-- NID Number (Text Input instead of File) -->
         <div class="input-box">
             <label>National ID Number (NID)</label>
