@@ -13,6 +13,9 @@ if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') { header
         .admin-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: #fff; }
         .admin-table th, .admin-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         .admin-table th { background-color: #f8f9fa; color: #d32f2f; }
+        .group-badge { display:inline-block; padding:4px 10px; border-radius:999px; font-weight:bold; font-size:12px; }
+        .group-match { background:#e8f5e9; color:#1b5e20; }
+        .group-mismatch { background:#ffebee; color:#c62828; }
         .btn-verify { background: #007bff; color: white; padding: 6px 12px; text-decoration: none; border-radius: 4px; font-size: 13px; }
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
         .badge-pending { background: #ffeeb3; color: #856404; }
@@ -62,11 +65,17 @@ if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') { header
     </table>
 
     <h3>2. Donor Confirmations (Need Verification)</h3>
+    <?php
+    $donor_id_column_check = mysqli_query($conn, "SHOW COLUMNS FROM requests LIKE 'donor_id'");
+    $has_donor_id_column = $donor_id_column_check && mysqli_num_rows($donor_id_column_check) > 0;
+    ?>
     <table class="admin-table">
         <thead>
             <tr>
                 <th>Donor Name</th>
                 <th>For Recipient</th>
+                <th>Requested Group</th>
+                <th>Donor Registered Group</th>
                 <th>Contact</th>
                 <th>Action</th>
             </tr>
@@ -74,22 +83,37 @@ if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') { header
         <tbody>
             <?php 
             /* FORCE QUERY: Jader donor_name ache kintu ekhono verified na */
-            $res2 = mysqli_query($conn, "SELECT * FROM requests WHERE donor_name IS NOT NULL AND status='accepted'");
+            if($has_donor_id_column) {
+                $res2 = mysqli_query($conn, "SELECT r.*, u.blood_group AS donor_registered_group
+                                            FROM requests r
+                                            LEFT JOIN users u ON r.donor_id = u.id
+                                            WHERE r.donor_name IS NOT NULL AND r.status='accepted'");
+            } else {
+                $res2 = mysqli_query($conn, "SELECT r.*, NULL AS donor_registered_group
+                                            FROM requests r
+                                            WHERE r.donor_name IS NOT NULL AND r.status='accepted'");
+            }
             
             if(mysqli_num_rows($res2) > 0) {
                 while($d = mysqli_fetch_array($res2)) {
+                    $requested_group = htmlspecialchars($d['blood_group']);
+                    $donor_group = htmlspecialchars($d['donor_registered_group'] ?? 'Unknown');
+                    $group_ok = !empty($d['donor_registered_group']) && $d['blood_group'] === $d['donor_registered_group'];
+                    $badge_class = $group_ok ? 'group-match' : 'group-mismatch';
                     echo "<tr>
                             <td>$d[donor_name]</td>
                             <td>$d[recipient_name]</td>
+                            <td><span class='group-badge $badge_class'>$requested_group</span></td>
+                            <td><span class='group-badge $badge_class'>$donor_group</span></td>
                             <td>$d[donor_contact]</td>
                             <td>
-                                <a href='admin_logic.php?verify_donor_id=$d[id]' class='btn-verify' style='margin-right:5px;'>Verify & Notify</a>
-                                <button onclick=\"openDonorRejectModal($d[id], '$d[donor_name]')\" style='background:#d32f2f; color:white; padding:6px 12px; border:none; border-radius:4px; cursor:pointer;'>Reject</button>
+                                <a href='admin_approve_logic.php?action=approve&request_id=$d[id]' class='btn-verify' style='margin-right:5px;'>Approve</a>
+                                <a href='admin_approve_logic.php?action=reject&request_id=$d[id]' style='background:#d32f2f; color:white; padding:6px 12px; text-decoration:none; border-radius:4px; font-size:13px;'>Reject</a>
                             </td>
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='4' style='text-align:center; color:gray;'>No donor confirmations found in database.</td></tr>";
+                echo "<tr><td colspan='6' style='text-align:center; color:gray;'>No donor confirmations found in database.</td></tr>";
             }
             ?>
         </tbody>

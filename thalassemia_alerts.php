@@ -9,6 +9,8 @@ if(!isset($_SESSION['user_id']) || !isset($_SESSION['user_role']) || $_SESSION['
 
 $current_donor_id = (int) $_SESSION['user_id'];
 
+//dashboard-er view quer
+
 $alert_sql = "SELECT ta.id AS alert_id, r.recipient_name, r.blood_group, r.hospital, r.message
               FROM thalassemia_alerts ta
               JOIN requests r ON ta.request_id = r.id
@@ -70,3 +72,4 @@ $alert_result = mysqli_query($conn, $alert_sql);
 <?php include('footer.php'); ?>
 </body>
 </html>
+// This file displays pending thalassemia alerts for the logged-in donor, allowing them to accept requests.

@@ -7,6 +7,12 @@ if(!isset($_SESSION['user_id'])) {
     die("Unauthorized! Please login first to commit a donation.");
 }
 
+// Ensure requests table can store the actual donor reference for admin validation
+$donor_id_column = mysqli_query($conn, "SHOW COLUMNS FROM requests LIKE 'donor_id'");
+if($donor_id_column && mysqli_num_rows($donor_id_column) === 0) {
+    mysqli_query($conn, "ALTER TABLE requests ADD donor_id INT(11) DEFAULT NULL AFTER status");
+}
+
 if(isset($_POST['confirm_btn'])) {
     $id = mysqli_real_escape_string($conn, $_POST['req_id']);
     $name = mysqli_real_escape_string($conn, $_POST['d_name']);
@@ -26,7 +32,7 @@ if(isset($_POST['confirm_btn'])) {
     }
 
     // Update status to 'accepted' with donor details
-    $query = "UPDATE requests SET donor_name='$name', donor_contact='$contact', status='accepted' WHERE id='$id'";
+    $query = "UPDATE requests SET donor_id='$donor_id', donor_name='$name', donor_contact='$contact', status='accepted' WHERE id='$id'";
     
     if(mysqli_query($conn, $query)) {
         if(isset($req_data['is_thalassemia']) && (int)$req_data['is_thalassemia'] === 1) {

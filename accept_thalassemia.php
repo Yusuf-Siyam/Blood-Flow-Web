@@ -22,3 +22,4 @@ if(mysqli_query($conn, $sql)) {
     exit();
 }
 ?>
+//halassaemia rogider jonno ekta automated ar instant blood

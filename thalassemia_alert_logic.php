@@ -77,3 +77,4 @@ if($action === 'accept') {
 header('Location: thalassemia_alerts.php');
 exit();
 ?>
+// This file handles the logic for accepting or ignoring thalassemia alerts for donors. It ensures that only authorized donors can process alerts and updates the database accordingly based on the action taken.
