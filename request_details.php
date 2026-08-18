@@ -60,6 +60,7 @@ if(isset($_SESSION['user_id']) && $is_thalassemia_request) {
 <head>
     <meta charset="UTF-8">
     <title>BloodFlow - Details</title>
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="request_details.css"> 
 </head>
 <body>

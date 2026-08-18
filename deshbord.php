@@ -8,6 +8,7 @@ require_once 'config.php';
 <head>
     <meta charset="UTF-8">
     <title>BloodFlow - Dashboard</title>
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="deshbord.css"> 
 </head>
 <body>

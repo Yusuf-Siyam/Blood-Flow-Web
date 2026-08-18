@@ -8,6 +8,7 @@ require_once 'config.php';
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="admin.css">
     <style>
         .admin-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; background: #fff; }

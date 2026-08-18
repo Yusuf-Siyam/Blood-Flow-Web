@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>BloodFlow - Login</title>
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="login.css">
 </head>
 <body>

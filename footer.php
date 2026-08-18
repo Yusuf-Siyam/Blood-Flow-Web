@@ -8,8 +8,8 @@
         <div class="footer-links">
             <h3>Quick Links</h3>
             <ul>
-                <li><a href="#">Donation Request</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="search.php">Donation Requests</a></li>
+                <li><a href="blood_banks_list.php">Blood Bank Inventory</a></li>
                 <li><a href="registration.php">Sign Up</a></li>
                 <li><a href="login.php">Sign In</a></li>
             </ul>
@@ -21,18 +21,10 @@
             <p>Emergency: +444555</p>
         </div>
         <div class="footer-social">
-            <!-- Social Icons placeholder -->
-            <a href="#">Twitter</a> <a href="#">Facebook</a> <a href="#">YouTube</a>
+            <h3>Follow Us</h3>
+            <a href="#">Twitter</a>
+            <a href="#">Facebook</a>
+            <a href="#">YouTube</a>
         </div>
     </div>
 </footer>
-
-<style>
-/* CSS for common footer */
-.main-footer { background: #1A1F2C; color: white; padding: 40px 20px; font-family: sans-serif;  }
-.footer-container { display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: auto; }
-.footer-brand, .footer-links, .footer-contact { flex: 1; min-width: 200px; margin: 10px; }
-.footer-links ul { list-style: none; padding: 0; }
-.footer-links a { color: #ccc; text-decoration: none; }
-.footer-social a { color: #ccc; margin-right: 10px; text-decoration: none; }
-</style>

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>BloodFlow - Register</title>
     <!-- Same CSS file used for Login to keep UI same -->
+    <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="registration.css"> 
 </head>
 <body>
