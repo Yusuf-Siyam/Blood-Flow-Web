@@ -1,6 +1,7 @@
 <?php 
-session_start(); 
-include('config.php'); 
+require_once 'auth_check.php';
+check_logged_in();
+require_once 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

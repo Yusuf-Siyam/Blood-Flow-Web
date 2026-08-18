@@ -1,7 +1,7 @@
 <?php 
-session_start();
-include('config.php');
-if(!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'admin') { header("Location: login.php"); exit(); }
+require_once 'auth_check.php';
+check_admin();
+require_once 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
